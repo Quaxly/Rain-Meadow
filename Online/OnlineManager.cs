@@ -396,5 +396,16 @@ namespace RainMeadow
                 throw new Exception(v);
             }
         }
+        public static void LostConnection()
+        {
+            RainMeadow.Error("Connection to the lobby was lost, leaving lobby!");
+            if (lobby != null && instance.manager.upcomingProcess != ProcessManager.ProcessID.MainMenu)
+            {
+                instance.manager.upcomingProcess = null;
+                instance.manager.RequestMainProcessSwitch(ProcessManager.ProcessID.MainMenu);
+                instance.manager.ShowDialog(new Menu.DialogNotify("Connection Lost", Utils.Translate("Connection timed out."), new Vector2(240, 320), instance.manager, () => { }));
+                LeaveLobby();
+            }
+        }
     }
 }

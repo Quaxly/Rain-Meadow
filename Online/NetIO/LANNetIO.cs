@@ -152,6 +152,7 @@ namespace RainMeadow
                         }
 
                         Packet.Decode(netReader, player);
+                        timeout = 0;
                     }
                 }
                 catch (Exception e)

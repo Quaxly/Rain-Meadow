@@ -121,6 +121,7 @@ namespace RainMeadow
                                 //RainMeadow.Debug($"Receiving message from {fromPlayer}");
                                 Marshal.Copy(message.m_pData, OnlineManager.serializer.buffer, 0, message.m_cbSize);
                                 OnlineManager.serializer.ReadData(fromPlayer, message.m_cbSize);
+                                timeout = 0;
                             }
                         }
                         catch (Exception e)

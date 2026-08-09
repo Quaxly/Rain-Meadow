@@ -7,6 +7,7 @@ namespace RainMeadow
 {
     public abstract class NetIO
     {
+        public int timeout; // reset on any successful RecieveData, if this gets too high (2400 ticks / 60 seconds) than we've probably lost connection
         public enum SendType : byte
         {
             Reliable,
@@ -72,7 +73,13 @@ namespace RainMeadow
 
         public virtual void Update()
         {
-               RecieveData();
+            RecieveData();
+            timeout++;
+            if (timeout > 2400 && OnlineManager.players.Count > 1) // 60 seconds
+            {
+                // connection lost
+                OnlineManager.LostConnection();
+            }
         }
 
         public abstract void RecieveData();
